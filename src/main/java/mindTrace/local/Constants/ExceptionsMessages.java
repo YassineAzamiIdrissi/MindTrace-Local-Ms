@@ -9,4 +9,9 @@ public class ExceptionsMessages {
     public static final String PASSWORDS_MISMATCH = "Passwords do not match";
     public static final String WEAK_PASSWORD = "Passwords has to be at least of 10 characters";
     public static final String AUTH_ERROR = "Email or password is incorrect";
+
+    public static final String PROJECT_NAME_REQUIRED = "Project name has to be specified";
+    public static final String PROJECT_DESCRIPTION_REQUIRED = "Project description has to be specified";
+
+    public static final String ADMIN_NOT_FOUND = "Admin not found";
 }

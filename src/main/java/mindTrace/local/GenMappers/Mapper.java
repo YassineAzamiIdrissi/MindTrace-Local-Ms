@@ -1,7 +1,10 @@
 package mindTrace.local.GenMappers;
 
+import mindTrace.local.Dtos.ProjectReqDTO;
+import mindTrace.local.Dtos.ProjectRespDTO;
 import mindTrace.local.Dtos.UserRegistrationDTO;
 import mindTrace.local.Entities.Admin;
+import mindTrace.local.Entities.Project;
 import mindTrace.local.Entities.User;
 
 public class Mapper {
@@ -17,6 +20,20 @@ public class Mapper {
                 firstname(req.getFirstname()).
                 lastname(req.getLastname()).
                 email(req.getEmail()).
+                build();
+    }
+    public static Project fromDtoToProjectEntity(ProjectReqDTO req) {
+        return Project.builder().
+                title(req.getName()).
+                description(req.getDescription()).
+                build();
+    }
+    public static ProjectRespDTO fromEntityProjectRespDTO(Project ent) {
+        return ProjectRespDTO.builder().
+                id(ent.getId()).
+                name(ent.getTitle()).
+                description(ent.getDescription()).
+                creator(ent.getCreator().getFullName()).
                 build();
     }
 }

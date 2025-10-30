@@ -25,4 +25,8 @@ public class Admin extends BaseEntity {
 
     @OneToMany(mappedBy = "creator")
     private List<Project> projects;
+
+    public String getFullName() {
+        return firstname +" "+ lastname;
+    }
 }

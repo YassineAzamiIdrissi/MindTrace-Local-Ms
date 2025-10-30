@@ -27,4 +27,9 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user")
     private List<Ticket> createdTickets;
+
+
+    public String getFullName() {
+        return firstname +" "+ lastname;
+    }
 }
