@@ -46,7 +46,14 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException(PASSWORDS_MISMATCH);
         }
     }
-
+    private void validateLoginData(LoginRequest loginRequest) {
+        if(loginRequest.getEmail() == null || loginRequest.getEmail().isEmpty()) {
+            throw new RuntimeException(EMAIL_REQUIRED);
+        }
+        if(loginRequest.getPassword() == null || loginRequest.getPassword().isEmpty()) {
+            throw new RuntimeException(PASSWORD_REQUIRED);
+        }
+    }
     @Override
     public void registerUser(UserRegistrationDTO dto) {
         validateUserData(dto);
@@ -58,6 +65,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public SessionDto loginUser(LoginRequest request) {
+        validateLoginData(request);
         User concernedUser = userRepository.findByEmail(
                 request.getEmail()
         ).orElseThrow(
