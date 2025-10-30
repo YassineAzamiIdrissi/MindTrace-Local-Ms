@@ -8,4 +8,5 @@ public class ExceptionsMessages {
     public static final String PASSWORDS_CONFIRMATION_REQUIRED = "Password confirmation has to be specified";
     public static final String PASSWORDS_MISMATCH = "Passwords do not match";
     public static final String WEAK_PASSWORD = "Passwords has to be at least of 10 characters";
+    public static final String AUTH_ERROR = "Email or password is incorrect";
 }

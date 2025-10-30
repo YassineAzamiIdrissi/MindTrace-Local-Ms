@@ -1,6 +1,8 @@
 package mindTrace.local.ServicesImpl;
 
 import lombok.RequiredArgsConstructor;
+import mindTrace.local.Dtos.LoginRequest;
+import mindTrace.local.Dtos.SessionDto;
 import mindTrace.local.Dtos.UserRegistrationDTO;
 import mindTrace.local.Entities.User;
 import mindTrace.local.Repositories.UserRepository;
@@ -16,6 +18,7 @@ import static mindTrace.local.GenMappers.Mapper.fromDtoToUserEntity;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+
     private void validateUserData(UserRegistrationDTO userRegistrationDTO) {
         if(userRegistrationDTO.getFirstname() == null || userRegistrationDTO.getFirstname().isEmpty()) {
             throw new RuntimeException(FIRSTNAME_REQUIRED);
@@ -51,5 +54,24 @@ public class UserServiceImpl implements UserService {
         User user = fromDtoToUserEntity(dto);
         user.setPassword(hashedPass);
         userRepository.save(user);
+    }
+
+    @Override
+    public SessionDto loginUser(LoginRequest request) {
+        User concernedUser = userRepository.findByEmail(
+                request.getEmail()
+        ).orElseThrow(
+                ()-> new RuntimeException(AUTH_ERROR)
+        );
+        String hashedPass = passwordEncoder.encode(request.getPassword());
+        if(hashedPass.equals(concernedUser.getPassword())) {
+            SessionDto sessionDto = new SessionDto();
+            sessionDto.setEmail(concernedUser.getEmail());
+            sessionDto.setFirstname(concernedUser.getFirstname());
+            sessionDto.setLastname(concernedUser.getLastname());
+            return sessionDto;
+        } else {
+            throw new RuntimeException(AUTH_ERROR);
+        }
     }
 }
