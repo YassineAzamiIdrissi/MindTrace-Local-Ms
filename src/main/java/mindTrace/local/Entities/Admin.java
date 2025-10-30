@@ -2,8 +2,6 @@ package mindTrace.local.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import lombok.*;
 import mindTrace.local.Utils.BaseEntity;
 
@@ -15,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Data
 @Builder
-public class User extends BaseEntity {
+public class Admin extends BaseEntity {
     private String firstname;
     private String lastname;
     @Column(unique=true)
