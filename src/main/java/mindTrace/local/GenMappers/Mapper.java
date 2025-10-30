@@ -1,9 +1,11 @@
 package mindTrace.local.GenMappers;
 
+import mindTrace.local.Dtos.FileResponseDTO;
 import mindTrace.local.Dtos.ProjectReqDTO;
 import mindTrace.local.Dtos.ProjectRespDTO;
 import mindTrace.local.Dtos.UserRegistrationDTO;
 import mindTrace.local.Entities.Admin;
+import mindTrace.local.Entities.File;
 import mindTrace.local.Entities.Project;
 import mindTrace.local.Entities.User;
 
@@ -36,5 +38,13 @@ public class Mapper {
                 creator(ent.getCreator().getFullName()).
                 build();
     }
-
+    public static FileResponseDTO fromEntityToFileResponseDTO(File ent) {
+        return FileResponseDTO.
+                builder().
+                name(ent.getName()).
+                projectName(ent.getProject().getTitle()).
+                size(ent.getSize()).
+                extension(ent.getExtension()).
+                build();
+    }
 }

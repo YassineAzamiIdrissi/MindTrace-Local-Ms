@@ -14,4 +14,5 @@ public class ExceptionsMessages {
     public static final String PROJECT_DESCRIPTION_REQUIRED = "Project description has to be specified";
 
     public static final String ADMIN_NOT_FOUND = "Admin not found";
+    public static final String PROJECT_NOT_FOUND = "Project not found";
 }

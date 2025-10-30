@@ -2,13 +2,17 @@ package mindTrace.local.ServicesImpl;
 
 import lombok.RequiredArgsConstructor;
 import mindTrace.local.Constants.ExceptionsMessages;
+import mindTrace.local.Dtos.FileResponseDTO;
 import mindTrace.local.Dtos.ProjectReqDTO;
 import mindTrace.local.Dtos.ProjectRespDTO;
 import mindTrace.local.Entities.Admin;
+import mindTrace.local.Entities.File;
 import mindTrace.local.Entities.Project;
 import mindTrace.local.GenMappers.Mapper;
 import mindTrace.local.Repositories.AdminRepository;
+import mindTrace.local.Repositories.FileRepository;
 import mindTrace.local.Repositories.ProjectRepository;
+import mindTrace.local.Repositories.TicketRepository;
 import mindTrace.local.Services.ProjectService;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +26,8 @@ import static mindTrace.local.GenMappers.Mapper.fromEntityProjectRespDTO;
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final AdminRepository adminRepository;
+    private final FileRepository fileRepository;
+    private final TicketRepository ticketRepository;
 
     private void validateProjectData(ProjectReqDTO project) throws RuntimeException {
         if(project.getName() == null || project.getName().isEmpty()) {
@@ -48,6 +54,18 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findAll().
                 stream().
                 map(Mapper::fromEntityProjectRespDTO).
+                toList();
+    }
+
+    @Override
+    public List<FileResponseDTO> listAllFilesInProject(Integer projectId) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(()-> new RuntimeException(PROJECT_NOT_FOUND));
+        List<File> innerFiles =
+                project.getAssociatedFiles();
+        return innerFiles.
+                stream().
+                map(Mapper::fromEntityToFileResponseDTO).
                 toList();
     }
 }
