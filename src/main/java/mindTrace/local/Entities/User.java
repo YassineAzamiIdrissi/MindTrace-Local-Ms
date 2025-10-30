@@ -1,13 +1,11 @@
 package mindTrace.local.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import mindTrace.local.Utils.BaseEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -22,4 +20,11 @@ public class User extends BaseEntity {
     private String email;
     private String password;
     private LocalDateTime birthDate;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<Message> messages;
+
+    @OneToMany(mappedBy = "user")
+    private List<Ticket> createdTickets;
 }

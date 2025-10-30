@@ -1,6 +1,7 @@
 package mindTrace.local.Entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import mindTrace.local.Utils.BaseEntity;
 
@@ -14,4 +15,7 @@ public class File extends BaseEntity {
     private String name;
     private float size;
     private String extension;
+
+    @ManyToOne
+    private Project project;
 }
