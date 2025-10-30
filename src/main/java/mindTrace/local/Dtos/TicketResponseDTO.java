@@ -1,0 +1,17 @@
+package mindTrace.local.Dtos;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
+public class TicketResponseDTO {
+    private String name;
+    private String description;
+    private String creator;
+    private String project;
+}

@@ -5,6 +5,7 @@ import mindTrace.local.Constants.ExceptionsMessages;
 import mindTrace.local.Dtos.FileResponseDTO;
 import mindTrace.local.Dtos.ProjectReqDTO;
 import mindTrace.local.Dtos.ProjectRespDTO;
+import mindTrace.local.Dtos.TicketResponseDTO;
 import mindTrace.local.Entities.Admin;
 import mindTrace.local.Entities.File;
 import mindTrace.local.Entities.Project;
@@ -26,8 +27,8 @@ import static mindTrace.local.GenMappers.Mapper.fromEntityProjectRespDTO;
 public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final AdminRepository adminRepository;
-    private final FileRepository fileRepository;
-    private final TicketRepository ticketRepository;
+    // private final FileRepository fileRepository;
+    // private final TicketRepository ticketRepository;
 
     private void validateProjectData(ProjectReqDTO project) throws RuntimeException {
         if(project.getName() == null || project.getName().isEmpty()) {
@@ -66,6 +67,17 @@ public class ProjectServiceImpl implements ProjectService {
         return innerFiles.
                 stream().
                 map(Mapper::fromEntityToFileResponseDTO).
+                toList();
+    }
+
+    @Override
+    public List<TicketResponseDTO> listAllTicketsInProject
+            (Integer projectId) {
+        Project concernedProject =
+                projectRepository.findById(projectId).
+                        orElseThrow(()-> new RuntimeException(PROJECT_NOT_FOUND));
+        return concernedProject.getTickets().stream().
+                map(Mapper::fromEntityToTicketResponseDTO).
                 toList();
     }
 }
