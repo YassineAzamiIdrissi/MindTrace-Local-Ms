@@ -12,6 +12,8 @@ import mindTrace.local.Repositories.ProjectRepository;
 import mindTrace.local.Services.ProjectService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static mindTrace.local.Constants.ExceptionsMessages.*;
 import static mindTrace.local.GenMappers.Mapper.fromEntityProjectRespDTO;
 
@@ -39,5 +41,13 @@ public class ProjectServiceImpl implements ProjectService {
         entity.setCreator(admin);
         Project saved = projectRepository.save(entity);
         return fromEntityProjectRespDTO(saved);
+    }
+
+    @Override
+    public List<ProjectRespDTO> listAllProjects() {
+        return projectRepository.findAll().
+                stream().
+                map(Mapper::fromEntityProjectRespDTO).
+                toList();
     }
 }
