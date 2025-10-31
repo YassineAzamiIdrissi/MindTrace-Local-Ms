@@ -1,7 +1,6 @@
 package mindTrace.local.ServicesImpl;
 
 import lombok.RequiredArgsConstructor;
-import mindTrace.local.Constants.ExceptionsMessages;
 import mindTrace.local.Dtos.TicketReqDTO;
 import mindTrace.local.Dtos.TicketResponseDTO;
 import mindTrace.local.Entities.Project;
@@ -15,6 +14,8 @@ import mindTrace.local.Repositories.UserRepository;
 import mindTrace.local.Services.TicketService;
 import mindTrace.local.Services.TicketVersionRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 import static mindTrace.local.Constants.ExceptionsMessages.*;
 import static mindTrace.local.Enums.Status.STARTING;
@@ -92,4 +93,17 @@ public class TicketServiceImpl implements TicketService {
         return fromEntityToTicketResponseDTO
                 (ticketRepository.save(childTicket));
     }
+
+    @Override
+    public TicketResponseDTO getTicketById(Integer ticketId) {
+        return ticketRepository.findById(ticketId).
+                map(Mapper::fromEntityToTicketResponseDTO).
+                orElseThrow(()-> new RuntimeException(TICKET_NOT_FOUND));
+    }
+
+    @Override
+    public List<TicketResponseDTO> getTicketVersions() {
+        return List.of();
+    }
+
 }
