@@ -17,4 +17,9 @@ public class ExceptionsMessages {
     public static final String PROJECT_NOT_FOUND = "Project not found";
     public static final String USER_NOT_FOUND = "User not found";
     public static final String TICKET_NOT_FOUND = "Ticket not found";
+
+    public static final String TICKET_DESCRIPTION_REQUIRED = "Ticket description has to be specified";
+    public static final String TICKET_TITLE_REQUIRED  = "Ticket title has to be specified";
+    public static final String TICKET_PROJECT_REQUIRED = "Ticket project has to be specified";
+    public static final String TICKET_CREATOR_REQUIRED = "Ticket creator has to be specified";
 }

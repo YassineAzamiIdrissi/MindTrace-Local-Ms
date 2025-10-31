@@ -6,16 +6,17 @@ import mindTrace.local.Dtos.TicketReqDTO;
 import mindTrace.local.Dtos.TicketResponseDTO;
 import mindTrace.local.Entities.Project;
 import mindTrace.local.Entities.Ticket;
+import mindTrace.local.Entities.TicketVersion;
 import mindTrace.local.Entities.User;
 import mindTrace.local.GenMapper.Mapper;
 import mindTrace.local.Repositories.ProjectRepository;
 import mindTrace.local.Repositories.TicketRepository;
 import mindTrace.local.Repositories.UserRepository;
 import mindTrace.local.Services.TicketService;
+import mindTrace.local.Services.TicketVersionRepository;
 import org.springframework.stereotype.Service;
 
-import static mindTrace.local.Constants.ExceptionsMessages.TICKET_NOT_FOUND;
-import static mindTrace.local.Constants.ExceptionsMessages.USER_NOT_FOUND;
+import static mindTrace.local.Constants.ExceptionsMessages.*;
 import static mindTrace.local.Enums.Status.STARTING;
 import static mindTrace.local.GenMapper.Mapper.fromEntityToTicketResponseDTO;
 
@@ -25,10 +26,30 @@ public class TicketServiceImpl implements TicketService {
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
+    private final TicketVersionRepository ticketVersionRepository;
+
+    private void validateTicketData(TicketReqDTO dto) {
+        if(dto.getDescription() == null || dto.getDescription().isEmpty()) {
+            throw new RuntimeException(TICKET_DESCRIPTION_REQUIRED);
+        }
+        if(dto.getTitle() == null || dto.getTitle().isEmpty()) {
+            throw new RuntimeException(TICKET_TITLE_REQUIRED);
+        }
+        if(dto.getProjectId() == null || dto.getProjectId() == 0) {
+            throw new RuntimeException(TICKET_PROJECT_REQUIRED);
+        }
+
+        if(dto.getUserId() == null || dto.getUserId() == 0) {
+            throw new RuntimeException(TICKET_CREATOR_REQUIRED);
+        }
+    }
 
     @Override
     public TicketResponseDTO saveTicket
-            (TicketReqDTO req, Integer userId, Integer projectId) {
+            (TicketReqDTO req) {
+        validateTicketData(req);
+        Integer projectId = req.getProjectId();
+        Integer userId = req.getUserId();
         User user = userRepository.findById(userId).
                 orElseThrow(() -> new RuntimeException(USER_NOT_FOUND));
         Project project = projectRepository.findById(projectId).
@@ -41,6 +62,24 @@ public class TicketServiceImpl implements TicketService {
                 status(STARTING).
                 build();
         return fromEntityToTicketResponseDTO(ticketRepository.save(ticket));
+    }
+
+    @Override
+    public TicketResponseDTO updateTicket(TicketReqDTO req, String connectedEmail) {
+        validateTicketData(req);
+        Integer ticketId = req.getId();
+        Ticket concernedTicket = ticketRepository.findById(ticketId).
+                orElseThrow(()-> new RuntimeException(TICKET_NOT_FOUND));
+        TicketVersion currentVersion = TicketVersion.
+                builder().
+                title(concernedTicket.getTitle()).
+                description(concernedTicket.getDescription()).
+                status(concernedTicket.getStatus()).
+                build();
+        ticketVersionRepository.save(currentVersion);
+        concernedTicket.setTitle(req.getTitle());
+        concernedTicket.setDescription(req.getDescription());
+        return Mapper.fromEntityToTicketResponseDTO(ticketRepository.save(concernedTicket));
     }
 
     @Override
