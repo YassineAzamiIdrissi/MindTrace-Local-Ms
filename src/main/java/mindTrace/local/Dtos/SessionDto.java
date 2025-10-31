@@ -4,7 +4,6 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@RequiredArgsConstructor
 @Data
 @Builder
 public class SessionDto {

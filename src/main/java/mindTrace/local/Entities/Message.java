@@ -5,6 +5,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import mindTrace.local.Enums.Sender;
 import mindTrace.local.Utils.BaseEntity;
 
@@ -13,7 +14,7 @@ import mindTrace.local.Utils.BaseEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 public class Message extends BaseEntity {
     private String content;
     @Enumerated(EnumType.STRING)

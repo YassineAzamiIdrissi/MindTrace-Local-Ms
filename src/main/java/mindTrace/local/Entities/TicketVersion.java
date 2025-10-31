@@ -6,6 +6,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.ManyToOne;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import mindTrace.local.Enums.Status;
 import mindTrace.local.Utils.BaseEntity;
 
@@ -14,7 +15,7 @@ import mindTrace.local.Utils.BaseEntity;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 public class TicketVersion extends BaseEntity {
     private String title;
     private String description;

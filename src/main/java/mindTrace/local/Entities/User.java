@@ -2,6 +2,7 @@ package mindTrace.local.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import mindTrace.local.Utils.BaseEntity;
 
 import java.time.LocalDateTime;
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 public class User extends BaseEntity {
     private String firstname;
     private String lastname;

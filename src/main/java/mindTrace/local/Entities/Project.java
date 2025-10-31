@@ -3,6 +3,7 @@ package mindTrace.local.Entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import mindTrace.local.Enums.Status;
 import mindTrace.local.Utils.BaseEntity;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
+@SuperBuilder
 public class Project extends BaseEntity {
     private String title;
     private String description;
