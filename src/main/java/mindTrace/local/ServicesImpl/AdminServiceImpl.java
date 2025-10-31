@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static mindTrace.local.Constants.ExceptionsMessages.*;
-import static mindTrace.local.GenMappers.Mapper.fromDtoToAdminEntity;
+import static mindTrace.local.GenMapper.Mapper.fromDtoToAdminEntity;
 
 @Service
 @RequiredArgsConstructor

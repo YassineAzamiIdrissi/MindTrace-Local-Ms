@@ -1,4 +1,4 @@
-package mindTrace.local.GenMappers;
+package mindTrace.local.GenMapper;
 
 import mindTrace.local.Dtos.*;
 import mindTrace.local.Entities.*;

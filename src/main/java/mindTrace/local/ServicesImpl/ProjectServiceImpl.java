@@ -1,7 +1,6 @@
 package mindTrace.local.ServicesImpl;
 
 import lombok.RequiredArgsConstructor;
-import mindTrace.local.Constants.ExceptionsMessages;
 import mindTrace.local.Dtos.FileResponseDTO;
 import mindTrace.local.Dtos.ProjectReqDTO;
 import mindTrace.local.Dtos.ProjectRespDTO;
@@ -9,18 +8,16 @@ import mindTrace.local.Dtos.TicketResponseDTO;
 import mindTrace.local.Entities.Admin;
 import mindTrace.local.Entities.File;
 import mindTrace.local.Entities.Project;
-import mindTrace.local.GenMappers.Mapper;
+import mindTrace.local.GenMapper.Mapper;
 import mindTrace.local.Repositories.AdminRepository;
-import mindTrace.local.Repositories.FileRepository;
 import mindTrace.local.Repositories.ProjectRepository;
-import mindTrace.local.Repositories.TicketRepository;
 import mindTrace.local.Services.ProjectService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static mindTrace.local.Constants.ExceptionsMessages.*;
-import static mindTrace.local.GenMappers.Mapper.fromEntityProjectRespDTO;
+import static mindTrace.local.GenMapper.Mapper.fromEntityProjectRespDTO;
 
 @Service
 @RequiredArgsConstructor
