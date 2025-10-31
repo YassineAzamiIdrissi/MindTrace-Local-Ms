@@ -14,6 +14,8 @@ import mindTrace.local.Repositories.UserRepository;
 import mindTrace.local.Services.MessagingService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static mindTrace.local.Constants.ExceptionsMessages.PROJECT_NOT_FOUND;
 import static mindTrace.local.Constants.ExceptionsMessages.USER_NOT_FOUND;
 import static mindTrace.local.Enums.Sender.CHATBOT;
@@ -45,6 +47,17 @@ public class MessagingServiceImpl implements MessagingService {
         }
         message.setSentAt(messagesRepository.save(newMessage).getCreatedDate());
         return message;
+    }
+
+    @Override
+    public List<MessageDTO> getConversation
+            (Integer projectId, Integer userId) {
+        List<Message> messages = messagesRepository.
+                findAllByUserIdAndProjectIdOrderByCreatedDateDesc(userId,
+                        projectId);
+        return messages.stream().
+                map(Mapper::fromEntityToMessageDTO).
+                toList();
     }
 
 
