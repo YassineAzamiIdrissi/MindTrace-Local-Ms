@@ -1,12 +1,10 @@
 package mindTrace.local.ServicesImpl;
 
 import lombok.RequiredArgsConstructor;
-import mindTrace.local.Constants.ExceptionsMessages;
 import mindTrace.local.Dtos.MessageDTO;
 import mindTrace.local.Entities.Message;
 import mindTrace.local.Entities.Project;
 import mindTrace.local.Entities.User;
-import mindTrace.local.Enums.Sender;
 import mindTrace.local.GenMapper.Mapper;
 import mindTrace.local.Repositories.MessagesRepository;
 import mindTrace.local.Repositories.ProjectRepository;
@@ -59,6 +57,4 @@ public class MessagingServiceImpl implements MessagingService {
                 map(Mapper::fromEntityToMessageDTO).
                 toList();
     }
-
-
 }
