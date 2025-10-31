@@ -19,4 +19,5 @@ public class ProjectRespDTO {
     private String description;
     private LocalDateTime createdAt;
     private Status status;
+    private Integer innerTickets;
 }

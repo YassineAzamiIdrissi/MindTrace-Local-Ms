@@ -27,6 +27,7 @@ public class Mapper {
     public static ProjectRespDTO fromEntityProjectRespDTO(Project ent) {
         return ProjectRespDTO.builder().
                 id(ent.getId()).
+                innerTickets(ent.getTickets().size()).
                 status(ent.getStatus()).
                 name(ent.getTitle()).
                 createdAt(ent.getCreatedDate()).
