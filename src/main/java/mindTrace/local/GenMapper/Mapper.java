@@ -72,4 +72,12 @@ public class Mapper {
                 project(version.getTicket().getProject().getTitle()).
                 build();
     }
+    public static MessageDTO fromEntityToMessageDTO(Message ent) {
+        return MessageDTO.builder().
+                sentBy(ent.getUser() == null ? 0 : ent.getUser().getId()).
+                projectId(ent.getProject().getId()).
+                content(ent.getContent()).
+                sentAt(ent.getCreatedDate()).
+                build();
+    }
 }

@@ -1,3 +1,5 @@
+server:
+  port:
 spring:
   profiles:
     active: dev
