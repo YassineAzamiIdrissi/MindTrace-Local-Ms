@@ -18,4 +18,5 @@ public interface TicketService {
     List<TicketResponseDTO> getTicketAndPrevVersion(Integer ticketId);
     Integer getTotalTickets();
     List<TicketResponseDTO> getTicketsByStatus(Status status);
+    List<TicketResponseDTO> getTicketVersion(Integer ticketId);
 }

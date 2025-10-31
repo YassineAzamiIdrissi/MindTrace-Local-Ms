@@ -130,4 +130,15 @@ public class TicketServiceImpl implements TicketService {
                 toList();
     }
 
+    @Override
+    public List<TicketResponseDTO> getTicketVersion(Integer ticketId) {
+        List<TicketVersion> versions =
+                ticketVersionRepository.findByTicketIdOrderByCreatedDateDesc(
+                        ticketId
+                );
+        return versions.stream().map(
+                Mapper::fromVersionToTicketResponseDTO
+        ).toList();
+    }
+
 }
