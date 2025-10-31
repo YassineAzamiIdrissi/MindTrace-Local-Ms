@@ -14,5 +14,5 @@ public interface TicketService {
 
     TicketResponseDTO attachTicketToParent(Integer subTicket,Integer parent);
     TicketResponseDTO getTicketById(Integer ticketId);
-    List<TicketResponseDTO> getTicketVersions();
+    List<TicketResponseDTO> getTicketAndPrevVersion(Integer ticketId);
 }

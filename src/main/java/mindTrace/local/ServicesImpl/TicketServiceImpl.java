@@ -15,6 +15,7 @@ import mindTrace.local.Services.TicketService;
 import mindTrace.local.Services.TicketVersionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static mindTrace.local.Constants.ExceptionsMessages.*;
@@ -102,8 +103,18 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public List<TicketResponseDTO> getTicketVersions() {
-        return List.of();
+    public List<TicketResponseDTO> getTicketAndPrevVersion(Integer ticketId) {
+        Ticket concernedTicket =
+                ticketRepository.findById(ticketId).
+                        orElseThrow(()-> new
+                                RuntimeException(TICKET_NOT_FOUND));
+        List<TicketVersion> versions =
+                ticketVersionRepository.findByTicketIdOrderByCreatedDateDesc(ticketId);
+        TicketVersion lastVersion = versions.get(0);
+        List<TicketResponseDTO> ret = new ArrayList<>();
+        ret.add(Mapper.fromVersionToTicketResponseDTO(lastVersion));
+        ret.add(Mapper.fromEntityToTicketResponseDTO(concernedTicket));
+        return ret;
     }
 
 }

@@ -55,4 +55,12 @@ public class Mapper {
                 description(ticket.getDescription()).
                 build();
     }
+    public static TicketResponseDTO fromVersionToTicketResponseDTO(TicketVersion version) {
+        return TicketResponseDTO.builder().
+                id(version.getTicket().getId()).
+                name(version.getTitle()).
+                description(version.getDescription()).
+                status(version.getStatus()).
+                build();
+    }
 }
