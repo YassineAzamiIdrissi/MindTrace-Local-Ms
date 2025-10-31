@@ -12,4 +12,5 @@ public interface ProjectService {
     List<ProjectRespDTO> listAllProjects();
     List<FileResponseDTO> listAllFilesInProject(Integer projectId);
     List<TicketResponseDTO> listAllTicketsInProject(Integer projectId);
+    ProjectRespDTO getProject(Integer projectId);
 }

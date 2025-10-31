@@ -77,4 +77,11 @@ public class ProjectServiceImpl implements ProjectService {
                 map(Mapper::fromEntityToTicketResponseDTO).
                 toList();
     }
+
+    @Override
+    public ProjectRespDTO getProject(Integer projectId) {
+        return projectRepository.findById(projectId).
+                map(Mapper::fromEntityProjectRespDTO).
+                orElseThrow(()-> new RuntimeException(PROJECT_NOT_FOUND));
+    }
 }
