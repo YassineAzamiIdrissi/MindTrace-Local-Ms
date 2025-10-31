@@ -13,10 +13,11 @@ import mindTrace.local.Utils.BaseEntity;
 @Data
 @SuperBuilder
 public class File extends BaseEntity {
-    private String name;
-    private float size;
-    private String extension;
 
+    private String name;
+    private long size;
+    private String extension;
+    private String url;
     @ManyToOne
     private Project project;
 }

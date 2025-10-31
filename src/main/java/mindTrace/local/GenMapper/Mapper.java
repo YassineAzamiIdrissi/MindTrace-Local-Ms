@@ -28,6 +28,7 @@ public class Mapper {
         return ProjectRespDTO.builder().
                 id(ent.getId()).
                 name(ent.getTitle()).
+                createdAt(ent.getCreatedDate()).
                 description(ent.getDescription()).
                 creator(ent.getCreator().getFullName()).
                 build();
@@ -36,8 +37,11 @@ public class Mapper {
         return FileResponseDTO.
                 builder().
                 name(ent.getName()).
+                size(ent.getSize()).
+                createdAt(ent.getCreatedDate()).
                 projectName(ent.getProject().getTitle()).
                 size(ent.getSize()).
+                url(ent.getUrl()).
                 extension(ent.getExtension()).
                 build();
     }
