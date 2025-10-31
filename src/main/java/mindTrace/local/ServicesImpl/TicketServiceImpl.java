@@ -7,6 +7,7 @@ import mindTrace.local.Entities.Project;
 import mindTrace.local.Entities.Ticket;
 import mindTrace.local.Entities.TicketVersion;
 import mindTrace.local.Entities.User;
+import mindTrace.local.Enums.Status;
 import mindTrace.local.GenMapper.Mapper;
 import mindTrace.local.Repositories.ProjectRepository;
 import mindTrace.local.Repositories.TicketRepository;
@@ -120,6 +121,13 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public Integer getTotalTickets() {
         return ticketRepository.findAll().size();
+    }
+
+    @Override
+    public List<TicketResponseDTO> getTicketsByStatus(Status status) {
+        return ticketRepository.findAllByStatus(status).
+                stream().map(Mapper::fromEntityToTicketResponseDTO).
+                toList();
     }
 
 }
