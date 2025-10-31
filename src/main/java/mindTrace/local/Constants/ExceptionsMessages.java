@@ -16,4 +16,5 @@ public class ExceptionsMessages {
     public static final String ADMIN_NOT_FOUND = "Admin not found";
     public static final String PROJECT_NOT_FOUND = "Project not found";
     public static final String USER_NOT_FOUND = "User not found";
+    public static final String TICKET_NOT_FOUND = "Ticket not found";
 }

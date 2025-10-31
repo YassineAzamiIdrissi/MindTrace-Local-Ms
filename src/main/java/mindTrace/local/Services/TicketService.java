@@ -7,4 +7,6 @@ import mindTrace.local.Dtos.TicketResponseDTO;
 public interface TicketService {
     TicketResponseDTO saveTicket
             (TicketReqDTO req,Integer userId, Integer projectId);
+
+    TicketResponseDTO attachTicketToParent(Integer subTicket,Integer parent);
 }

@@ -11,6 +11,7 @@ import mindTrace.local.Enums.Status;
 @Builder
 @Data
 public class TicketResponseDTO {
+    private Integer id;
     private String name;
     private String description;
     private Status status;

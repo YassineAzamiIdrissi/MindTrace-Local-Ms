@@ -27,6 +27,7 @@ public class Mapper {
     public static ProjectRespDTO fromEntityProjectRespDTO(Project ent) {
         return ProjectRespDTO.builder().
                 id(ent.getId()).
+                status(ent.getStatus()).
                 name(ent.getTitle()).
                 createdAt(ent.getCreatedDate()).
                 description(ent.getDescription()).
@@ -47,6 +48,7 @@ public class Mapper {
     }
     public static TicketResponseDTO fromEntityToTicketResponseDTO(Ticket ticket) {
         return TicketResponseDTO.builder().
+                id(ticket.getId()).
                 name(ticket.getTitle()).
                 project(ticket.getProject().getTitle()).
                 creator(ticket.getUser().getFullName()).
