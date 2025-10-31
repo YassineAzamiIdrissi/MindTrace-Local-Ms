@@ -18,7 +18,6 @@ import static mindTrace.local.GenMapper.Mapper.fromDtoToUserEntity;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
     private void validateUserData(UserRegistrationDTO userRegistrationDTO) {
         if(userRegistrationDTO.getFirstname() == null || userRegistrationDTO.getFirstname().isEmpty()) {
             throw new RuntimeException(FIRSTNAME_REQUIRED);

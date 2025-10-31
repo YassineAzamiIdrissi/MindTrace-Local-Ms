@@ -2,6 +2,9 @@ package mindTrace.local.GenMapper;
 
 import mindTrace.local.Dtos.*;
 import mindTrace.local.Entities.*;
+import mindTrace.local.Enums.Status;
+
+import static mindTrace.local.Enums.Status.STARTING;
 
 public class Mapper {
     public static User fromDtoToUserEntity(UserRegistrationDTO req) {
@@ -21,13 +24,15 @@ public class Mapper {
     public static Project fromDtoToProjectEntity(ProjectReqDTO req) {
         return Project.builder().
                 title(req.getName()).
+                status(STARTING).
                 description(req.getDescription()).
                 build();
     }
     public static ProjectRespDTO fromEntityProjectRespDTO(Project ent) {
         return ProjectRespDTO.builder().
                 id(ent.getId()).
-                innerTickets(ent.getTickets().size()).
+                innerTickets(ent.getTickets() != null ? ent.getTickets().size() : 0).
+                innerFiles(ent.getAssociatedFiles() != null ? ent.getAssociatedFiles().size() : 0).
                 status(ent.getStatus()).
                 name(ent.getTitle()).
                 createdAt(ent.getCreatedDate()).
