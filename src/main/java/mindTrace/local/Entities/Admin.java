@@ -3,6 +3,7 @@ package mindTrace.local.Entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import mindTrace.local.Utils.BaseEntity;
@@ -16,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @SuperBuilder
+@Table(name = "__Admin")
 public class Admin extends BaseEntity {
     private String firstname;
     private String lastname;

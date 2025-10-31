@@ -71,8 +71,7 @@ public class AdminServiceImpl implements AdminService {
         ).orElseThrow(
                 ()-> new RuntimeException(AUTH_ERROR)
         );
-        String hashedPass = passwordEncoder.encode(request.getPassword());
-        if(hashedPass.equals(concernedUser.getPassword())) {
+        if(passwordEncoder.matches(request.getPassword(), concernedUser.getPassword())) {
             SessionDto sessionDto = new SessionDto();
             sessionDto.setEmail(concernedUser.getEmail());
             sessionDto.setFirstname(concernedUser.getFirstname());
