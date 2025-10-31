@@ -8,6 +8,7 @@ import mindTrace.local.Dtos.TicketResponseDTO;
 import mindTrace.local.Entities.Admin;
 import mindTrace.local.Entities.File;
 import mindTrace.local.Entities.Project;
+import mindTrace.local.Enums.Status;
 import mindTrace.local.GenMapper.Mapper;
 import mindTrace.local.Repositories.AdminRepository;
 import mindTrace.local.Repositories.ProjectRepository;
@@ -83,5 +84,13 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findById(projectId).
                 map(Mapper::fromEntityProjectRespDTO).
                 orElseThrow(()-> new RuntimeException(PROJECT_NOT_FOUND));
+    }
+
+    @Override
+    public List<ProjectRespDTO> listProjectsByStatus(Status status) {
+        return projectRepository.findAll().
+                stream().
+                map(Mapper::fromEntityProjectRespDTO).
+                toList();
     }
 }

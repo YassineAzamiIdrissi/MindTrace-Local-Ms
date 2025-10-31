@@ -4,6 +4,7 @@ import mindTrace.local.Dtos.FileResponseDTO;
 import mindTrace.local.Dtos.ProjectReqDTO;
 import mindTrace.local.Dtos.ProjectRespDTO;
 import mindTrace.local.Dtos.TicketResponseDTO;
+import mindTrace.local.Enums.Status;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface ProjectService {
     List<FileResponseDTO> listAllFilesInProject(Integer projectId);
     List<TicketResponseDTO> listAllTicketsInProject(Integer projectId);
     ProjectRespDTO getProject(Integer projectId);
+    List<ProjectRespDTO> listProjectsByStatus(Status status);
 }
