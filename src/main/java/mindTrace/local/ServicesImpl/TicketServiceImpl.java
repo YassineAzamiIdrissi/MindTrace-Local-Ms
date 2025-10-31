@@ -39,11 +39,14 @@ public class TicketServiceImpl implements TicketService {
             throw new RuntimeException(TICKET_TITLE_REQUIRED);
         }
         if(dto.getProjectId() == null || dto.getProjectId() == 0) {
-            throw new RuntimeException(TICKET_PROJECT_REQUIRED);
+               throw new RuntimeException(TICKET_PROJECT_REQUIRED);
         }
 
         if(dto.getUserId() == null || dto.getUserId() == 0) {
             throw new RuntimeException(TICKET_CREATOR_REQUIRED);
+        }
+        if(dto.getStatus() == null) {
+            throw new RuntimeException(TICKET_STATUS_REQUIRED);
         }
     }
 
@@ -68,13 +71,14 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketResponseDTO updateTicket(TicketReqDTO req, String connectedEmail) {
+    public TicketResponseDTO updateTicket(TicketReqDTO req) {
         validateTicketData(req);
         Integer ticketId = req.getId();
         Ticket concernedTicket = ticketRepository.findById(ticketId).
                 orElseThrow(()-> new RuntimeException(TICKET_NOT_FOUND));
         TicketVersion currentVersion = TicketVersion.
                 builder().
+                ticket(concernedTicket).
                 title(concernedTicket.getTitle()).
                 description(concernedTicket.getDescription()).
                 status(concernedTicket.getStatus()).
@@ -82,6 +86,7 @@ public class TicketServiceImpl implements TicketService {
         ticketVersionRepository.save(currentVersion);
         concernedTicket.setTitle(req.getTitle());
         concernedTicket.setDescription(req.getDescription());
+        concernedTicket.setStatus(req.getStatus());
         return Mapper.fromEntityToTicketResponseDTO(ticketRepository.save(concernedTicket));
     }
 

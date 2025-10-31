@@ -22,4 +22,5 @@ public class ExceptionsMessages {
     public static final String TICKET_TITLE_REQUIRED  = "Ticket title has to be specified";
     public static final String TICKET_PROJECT_REQUIRED = "Ticket project has to be specified";
     public static final String TICKET_CREATOR_REQUIRED = "Ticket creator has to be specified";
+    public static final String TICKET_STATUS_REQUIRED = "Ticket status has to be specified";
 }

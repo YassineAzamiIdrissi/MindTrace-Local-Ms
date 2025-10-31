@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import mindTrace.local.Enums.Status;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,4 +16,5 @@ public class TicketReqDTO {
     private String description;
     private Integer projectId;
     private Integer userId;
+    private Status status;
 }

@@ -55,6 +55,7 @@ public class Mapper {
     public static TicketResponseDTO fromEntityToTicketResponseDTO(Ticket ticket) {
         return TicketResponseDTO.builder().
                 id(ticket.getId()).
+                status(ticket.getStatus()).
                 name(ticket.getTitle()).
                 project(ticket.getProject().getTitle()).
                 creator(ticket.getUser().getFullName()).
@@ -67,6 +68,8 @@ public class Mapper {
                 name(version.getTitle()).
                 description(version.getDescription()).
                 status(version.getStatus()).
+                creator(version.getTicket().getUser().getFullName()).
+                project(version.getTicket().getProject().getTitle()).
                 build();
     }
 }

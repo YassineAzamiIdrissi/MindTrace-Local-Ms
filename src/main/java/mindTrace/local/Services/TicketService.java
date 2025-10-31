@@ -11,7 +11,7 @@ public interface TicketService {
     TicketResponseDTO saveTicket
             (TicketReqDTO req);
 
-    TicketResponseDTO updateTicket(TicketReqDTO req, String email);
+    TicketResponseDTO updateTicket(TicketReqDTO req);
 
     TicketResponseDTO attachTicketToParent(Integer subTicket,Integer parent);
     TicketResponseDTO getTicketById(Integer ticketId);
