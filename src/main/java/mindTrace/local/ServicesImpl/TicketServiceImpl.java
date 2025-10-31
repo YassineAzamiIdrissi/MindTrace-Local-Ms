@@ -117,4 +117,9 @@ public class TicketServiceImpl implements TicketService {
         return ret;
     }
 
+    @Override
+    public Integer getTotalTickets() {
+        return ticketRepository.findAll().size();
+    }
+
 }
