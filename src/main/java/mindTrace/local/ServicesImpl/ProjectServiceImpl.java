@@ -88,7 +88,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectRespDTO> listProjectsByStatus(Status status) {
-        return projectRepository.findAll().
+        return projectRepository.findAllByStatus(status).
                 stream().
                 map(Mapper::fromEntityProjectRespDTO).
                 toList();

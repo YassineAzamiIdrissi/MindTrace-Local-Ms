@@ -80,4 +80,11 @@ public class Mapper {
                 sentAt(ent.getCreatedDate()).
                 build();
     }
+    public static ModificationRespDTO fromEntityToModificationDTO
+            (Modification ent) {
+        return ModificationRespDTO.builder().
+                ticketName(ent.getTicket().getTitle()).
+                description(ent.getDescription()).
+                build();
+    }
 }
