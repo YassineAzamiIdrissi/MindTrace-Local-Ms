@@ -83,6 +83,7 @@ public class Mapper {
     public static ModificationRespDTO fromEntityToModificationDTO
             (Modification ent) {
         return ModificationRespDTO.builder().
+                ticketId(ent.getTicket().getId()).
                 ticketName(ent.getTicket().getTitle()).
                 description(ent.getDescription()).
                 build();

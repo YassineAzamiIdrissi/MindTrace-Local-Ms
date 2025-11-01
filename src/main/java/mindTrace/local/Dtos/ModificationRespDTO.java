@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ModificationRespDTO {
+    private Integer ticketId;
     private String ticketName;
     private String description;
 }
