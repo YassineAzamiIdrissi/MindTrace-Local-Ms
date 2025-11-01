@@ -3,12 +3,10 @@ package mindTrace.local.ServicesImpl;
 import lombok.RequiredArgsConstructor;
 import mindTrace.local.Dtos.TicketReqDTO;
 import mindTrace.local.Dtos.TicketResponseDTO;
-import mindTrace.local.Entities.Project;
-import mindTrace.local.Entities.Ticket;
-import mindTrace.local.Entities.TicketVersion;
-import mindTrace.local.Entities.User;
+import mindTrace.local.Entities.*;
 import mindTrace.local.Enums.Status;
 import mindTrace.local.GenMapper.Mapper;
+import mindTrace.local.Repositories.ModificationRepository;
 import mindTrace.local.Repositories.ProjectRepository;
 import mindTrace.local.Repositories.TicketRepository;
 import mindTrace.local.Repositories.UserRepository;
@@ -30,7 +28,7 @@ public class TicketServiceImpl implements TicketService {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
     private final TicketVersionRepository ticketVersionRepository;
-
+    private final ModificationRepository modifRepository;
     private void validateTicketData(TicketReqDTO dto) {
         if(dto.getDescription() == null || dto.getDescription().isEmpty()) {
             throw new RuntimeException(TICKET_DESCRIPTION_REQUIRED);
@@ -73,6 +71,8 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketResponseDTO updateTicket(TicketReqDTO req) {
         validateTicketData(req);
+        String modifsDesc = "The ";
+        boolean absoluteChange = false;
         Integer ticketId = req.getId();
         Ticket concernedTicket = ticketRepository.findById(ticketId).
                 orElseThrow(()-> new RuntimeException(TICKET_NOT_FOUND));
@@ -83,6 +83,27 @@ public class TicketServiceImpl implements TicketService {
                 description(concernedTicket.getDescription()).
                 status(concernedTicket.getStatus()).
                 build();
+        if(!currentVersion.getDescription().equals(req.getDescription())) {
+            absoluteChange= true;
+            modifsDesc+="Description ";
+        }
+        if(!currentVersion.getTitle().equals(req.getTitle())) {
+            absoluteChange= true;
+            modifsDesc+="Title ";
+        }
+        if(!currentVersion.getStatus().equals(req.getStatus())) {
+            absoluteChange= true;
+            modifsDesc+="Status ";
+        }
+        if(absoluteChange) {
+            modifsDesc+="Of the ticket N°"+concernedTicket.getId()+" Has changed";
+            Modification modif = Modification.builder().
+                    description(modifsDesc).
+                    ticket(concernedTicket).
+                    build();
+            modifRepository.save(modif);
+        }
+
         ticketVersionRepository.save(currentVersion);
         concernedTicket.setTitle(req.getTitle());
         concernedTicket.setDescription(req.getDescription());

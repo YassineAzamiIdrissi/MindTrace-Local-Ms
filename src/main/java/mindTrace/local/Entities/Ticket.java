@@ -35,4 +35,7 @@ public class Ticket extends BaseEntity {
 
     @OneToMany(mappedBy = "ticket")
     private List<TicketVersion> versions;
+
+    @OneToMany(mappedBy = "ticket")
+    private List<Modification> modifications;
 }
